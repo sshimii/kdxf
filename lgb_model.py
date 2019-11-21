@@ -56,7 +56,7 @@ def feature_count(data, features=[], is_feature=True):
     nunique = []
     for i in features:
         nunique.append(data[i].nunique())
-        new_feature += '_' + i.replace('add_', '')
+        new_feature += '_' + i.replace('add_', '')  #结果为new_feature_i
     if len(features) > 1 and len(data[features].drop_duplicates()) <= np.max(nunique):
         print(new_feature, 'is unvalid cross feature:')
         return data
