@@ -62,7 +62,7 @@ def feature_count(data, features=[], is_feature=True):
         return data
 #     temp = data.groupby(features).size().reset_index().rename(columns={0: new_feature})
 #     data = data.merge(temp, 'left', on=features)
-    data.groupby(features)[features].transform('count')#这句话可取代上面两句
+    data[new_feature]=data.groupby(features)[features].transform('count')#这句话可取代上面两句
     if is_feature:
         count_feature_list.append(new_feature)
     if 'day_' in new_feature:
@@ -93,7 +93,8 @@ for i in media_cate_feature:
     for j in content_cate_feature + ad_cate_feature:
         new_feature = 'inf_' + i + '_' + j
         data = feature_count(data, [i, j])
-        if data[i].nunique() > 5 and data[j].nunique() > 5:
+#         if data[i].nunique() > 5 and data[j].nunique() > 5:
+        if data[i].nunique() > 5 and data[j].nunique() > 5 and 'count_' + i + '_' + j in data.columns:#这里，可能有变量经过feature_count函数之后没结果，若不加这个判断会报错
             data['ratio_' + j + '_of_' + i] = data[
                                                   'count_' + i + '_' + j] / data['count_' + i]
             data['ratio_' + i + '_of_' + j] = data[
