@@ -60,8 +60,9 @@ def feature_count(data, features=[], is_feature=True):
     if len(features) > 1 and len(data[features].drop_duplicates()) <= np.max(nunique):
         print(new_feature, 'is unvalid cross feature:')
         return data
-    temp = data.groupby(features).size().reset_index().rename(columns={0: new_feature})
-    data = data.merge(temp, 'left', on=features)
+#     temp = data.groupby(features).size().reset_index().rename(columns={0: new_feature})
+#     data = data.merge(temp, 'left', on=features)
+    data.groupby(features)[features].transform('count')#这句话可取代上面两句
     if is_feature:
         count_feature_list.append(new_feature)
     if 'day_' in new_feature:
