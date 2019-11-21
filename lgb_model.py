@@ -18,12 +18,16 @@ import time
 import pandas as pd
 import numpy as np
 
-path = '../data'
+path = 'D:/iflytek'
 # 全量数据
-data = pd.read_csv(path + '/data_all.csv')
+f = open(path +'/round1_iflyad_train.txt',encoding='UTF-8')
+data = pd.read_csv(f,sep = '\t')
 data = data.fillna(-1)
-data['day'] = data['time'].apply(lambda x: int(time.strftime("%d", time.localtime(x))))
-data['hour'] = data['time'].apply(lambda x: int(time.strftime("%H", time.localtime(x))))
+
+# data['day'] = data['time'].apply(lambda x: int(time.strftime("%d", time.localtime(x))))
+# data['hour'] = data['time'].apply(lambda x: int(time.strftime("%H", time.localtime(x))))
+data['day'] = [int(time.strftime("%d", time.localtime(i))) for i in data['time'].values] #速度比apply更快
+data['hour'] = [int(time.strftime("%H", time.localtime(i))) for i in data['time'].values] #速度比apply更快
 data['label'] = data.click.astype(int)
 del data['click']
 bool_feature = ['creative_is_jump', 'creative_is_download', 'creative_is_js', 'creative_is_voicead',
