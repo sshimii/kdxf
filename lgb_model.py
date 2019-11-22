@@ -21,7 +21,10 @@ import numpy as np
 path = 'D:/iflytek'
 # 全量数据
 f = open(path +'/round1_iflyad_train.txt',encoding='UTF-8')
-data = pd.read_csv(f,sep = '\t')
+train_data = pd.read_csv(f,sep = '\t')
+f = open(path +'/round1_iflyad_test_feature.txt',encoding='UTF-8')
+test_data = pd.read_csv(f,sep = '\t')
+data = pd.concat([train_data,test_data],axis=0,ignore_index = True)
 data = data.fillna(-1)
 
 # data['day'] = data['time'].apply(lambda x: int(time.strftime("%d", time.localtime(x))))
