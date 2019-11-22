@@ -122,7 +122,7 @@ predict_result['predicted_score'] = 0
 predict_x = predict.drop('label', axis=1)
 train_x = data[data.label != -1].reset_index(drop=True)
 train_y = train_x.pop('label').values
-base_train_csr = sparse.csr_matrix((len(train_x), 0))
+base_train_csr = sparse.csr_matrix((len(train_x), 0))  #关于csr,详见百度网盘csr-csc说明.doc
 base_predict_csr = sparse.csr_matrix((len(predict_x), 0))
 
 enc = OneHotEncoder()
