@@ -108,7 +108,7 @@ feature = cate_feature + num_feature
 print(len(feature), feature)
 # 低频过滤
 for feature in cate_feature:
-    if 'count_' + feature in data.keys():
+    if 'count_' + feature in data.keys(): #data.keys() = data.columns.tolist()
         print(feature)
         data.loc[data['count_' + feature] < 2, feature] = -1
         data[feature] = data[feature] + 1
