@@ -84,7 +84,8 @@ ratio_feature_list = []
 for i in ['adid']:
     for j in content_cate_feature:
         data = feature_count(data, [i, j])
-        if data[i].nunique() > 5 and data[j].nunique() > 5:
+#         if data[i].nunique() > 5 and data[j].nunique() > 5:
+        if data[i].nunique() > 5 and data[j].nunique() > 5 and 'count_' + i + '_' + j in data.keys():#这里，可能有变量经过feature_count函数之后没结果，若不加这个判断会报错
             data['ratio_' + j + '_of_' + i] = data[
                                                   'count_' + i + '_' + j] / data['count_' + i]
             data['ratio_' + i + '_of_' + j] = data[
@@ -97,7 +98,7 @@ for i in media_cate_feature:
         new_feature = 'inf_' + i + '_' + j
         data = feature_count(data, [i, j])
 #         if data[i].nunique() > 5 and data[j].nunique() > 5:
-        if data[i].nunique() > 5 and data[j].nunique() > 5 and 'count_' + i + '_' + j in data.columns:#这里，可能有变量经过feature_count函数之后没结果，若不加这个判断会报错
+        if data[i].nunique() > 5 and data[j].nunique() > 5 and 'count_' + i + '_' + j in data.keys():#这里，可能有变量经过feature_count函数之后没结果，若不加这个判断会报错
             data['ratio_' + j + '_of_' + i] = data[
                                                   'count_' + i + '_' + j] / data['count_' + i]
             data['ratio_' + i + '_of_' + j] = data[
